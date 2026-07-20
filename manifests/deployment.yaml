@@ -20,7 +20,7 @@ spec:
           # no registry. THIS is the line you change to test GitOps:
           image: hashicorp/http-echo:1.0.0
           args:
-            - "-text=Hello from GitOps, this is a main edit — edit me on a branch and push! (v2)"
+            - "-text=v3 - changed by Claude - watch this sync in the Argo UI!"
             - "-listen=:5678"
           ports:
             - containerPort: 5678
