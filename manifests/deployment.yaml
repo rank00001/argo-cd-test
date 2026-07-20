@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+  labels:
+    app: hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello
+  template:
+    metadata:
+      labels:
+        app: hello
+    spec:
+      containers:
+        - name: echo
+          # Tiny public image that just serves whatever -text you give it. No build,
+          # no registry. THIS is the line you change to test GitOps:
+          image: hashicorp/http-echo:1.0.0
+          args:
+            - "-text=Hello from GitOps — edit me on a branch and push! (v1)"
+            - "-listen=:5678"
+          ports:
+            - containerPort: 5678

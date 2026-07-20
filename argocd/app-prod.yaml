@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rank00001/argo-cd-test.git
+    targetRevision: main           # watches the "main" branch (prod)
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo-prod
+  syncPolicy:
+    # NO automated block → MANUAL sync. Prod shows OutOfSync and waits for you to
+    # click Sync / run `argocd app sync hello-prod`. Same gate as the real rapid-prod.
+    syncOptions:
+      - CreateNamespace=true

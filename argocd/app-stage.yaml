@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hello-stage
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rank00001/argo-cd-test.git
+    targetRevision: stage          # watches the "stage" branch
+    path: manifests                # the folder inside the repo
+  destination:
+    server: https://kubernetes.default.svc   # local Docker Desktop cluster
+    namespace: demo-stage
+  syncPolicy:
+    automated:                     # stage auto-deploys on every push to stage
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
