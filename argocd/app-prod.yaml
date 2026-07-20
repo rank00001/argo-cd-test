@@ -13,7 +13,8 @@ spec:
     server: https://kubernetes.default.svc
     namespace: demo-prod
   syncPolicy:
-    # NO automated block → MANUAL sync. Prod shows OutOfSync and waits for you to
-    # click Sync / run `argocd app sync hello-prod`. Same gate as the real rapid-prod.
+    automated:                     # prod also auto-deploys on every push to main
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
